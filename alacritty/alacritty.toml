@@ -4,7 +4,7 @@
 # ║    Enhanced animations, refined UX, productivity-focused            ║
 # ╚══════════════════════════════════════════════════════════════════════╝
 
-live_config_reload = true
+live_config_reload = false
 ipc_socket = true
 
 [env]
