@@ -1,0 +1,193 @@
+# ── Core ─────────────────────────────────────────────────────────
+set $mod Mod4
+font pango:monospace 10
+
+# ── Gaps ─────────────────────────────────────────────────────────
+gaps inner 8
+gaps outer 4
+gaps top 44
+smart_gaps off
+smart_borders on
+default_border pixel 2
+hide_edge_borders smart
+
+# ── Colors (Catppuccin Mocha) ─────────────────────────────────────
+set $base     #1e1e2e
+set $surface0 #313244
+set $surface1 #45475a
+set $text     #cdd6f4
+set $mauve    #cba6f7
+set $red      #f38ba8
+set $overlay0 #6c7086
+
+client.focused          $mauve    $surface0  $text     $mauve    $mauve
+client.focused_inactive $surface1 $base      $text     $surface1 $surface1
+client.unfocused        $base     $base      $overlay0 $base     $base
+client.urgent           $red      $red       $base     $red      $red
+
+# ── Autostart ────────────────────────────────────────────────────
+exec --no-startup-id nm-applet
+exec --no-startup-id systemctl --user start dunst.service
+exec --no-startup-id sh -c 'pgrep -x lxqt-policykit-agent >/dev/null || exec /usr/bin/lxqt-policykit-agent'
+exec_always --no-startup-id feh --bg-scale /home/devarshi-lalani09/Pictures/wallhaven-e89l7k.jpg
+exec --no-startup-id systemctl --user start picom.service
+exec --no-startup-id /home/devarshi-lalani09/.config/polybar/scripts/launch.sh
+exec --no-startup-id xinput set-prop "GXTP5100:00 27C6:01E0 Touchpad" "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "GXTP5100:00 27C6:01E0 Touchpad" "libinput Natural Scrolling Enabled" 1
+exec --no-startup-id xinput set-prop "GXTP5100:00 27C6:01E0 Touchpad" "libinput Tapping Drag Enabled" 1
+
+# ── Volume ───────────────────────────────────────────────────────
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+ && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $refresh_i3status
+bindsym XF86AudioMute        exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && $refresh_i3status
+bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+# ── Apps ─────────────────────────────────────────────────────────
+bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Shift+Return exec --no-startup-id i3-msg split v; exec --no-startup-id alacritty
+bindsym $mod+Control+Return exec --no-startup-id i3-msg split h; exec --no-startup-id alacritty
+bindsym $mod+d      exec --no-startup-id rofi -show drun -show-icons
+bindsym $mod+Tab    exec --no-startup-id rofi -show window -show-icons
+bindsym $mod+F2 exec --no-startup-id ~/.config/i3/scripts/atuin-popup.sh
+bindsym $mod+Shift+f exec --no-startup-id /home/devarshi-lalani09/.local/bin/thunar
+bindsym $mod+F3      exec --no-startup-id /home/devarshi-lalani09/.local/bin/code
+# Screenshots ── Print: fullscreen save │ $mod+Print: selection → clipboard │ Shift+Print: selection save
+bindsym Print       exec --no-startup-id maim ~/Pictures/Screenshots/$(date +%Y-%m-%d_%T).png && notify-send -i camera-photo "Screenshot" "Fullscreen saved to ~/Pictures/Screenshots"
+bindsym $mod+Print  exec --no-startup-id maim -s | xclip -selection clipboard -t image/png && notify-send -i edit-copy "Screenshot" "Selection copied to clipboard"
+bindsym Shift+Print exec --no-startup-id maim -s ~/Pictures/Screenshots/$(date +%Y-%m-%d_%T).png && notify-send -i camera-photo "Screenshot" "Selection saved to ~/Pictures/Screenshots"
+
+# ── Window management ────────────────────────────────────────────
+bindsym $mod+Shift+q kill
+bindsym $mod+f       fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space       focus mode_toggle
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus       scratchpad show
+
+# ── Focus ────────────────────────────────────────────────────────
+bindsym $mod+h     focus left
+bindsym $mod+j     focus down
+bindsym $mod+k     focus up
+bindsym $mod+l exec --no-startup-id /home/devarshi-lalani09/.config/polybar/scripts/lock.sh
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+# ── Move ─────────────────────────────────────────────────────────
+bindsym $mod+Shift+h     move left
+bindsym $mod+Shift+j     move down
+bindsym $mod+Shift+k     move up
+bindsym $mod+Shift+l     move right
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+# ── Layout ───────────────────────────────────────────────────────
+bindsym $mod+b       exec --no-startup-id i3-msg split h
+bindsym $mod+v       exec --no-startup-id i3-msg split v
+bindsym $mod+s       layout stacking
+bindsym $mod+w       layout tabbed
+bindsym $mod+e       layout toggle split
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+# ── i3 control ───────────────────────────────────────────────────
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
+bindsym $mod+Control+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes' 'i3-msg exit'"
+bindsym $mod+Shift+p exec "i3-nagbar -t warning -m 'Power?' -B 'Lock' 'i3lock -c 1e1e2e' -B 'Suspend' 'systemctl suspend' -B 'Reboot' 'systemctl reboot' -B 'Poweroff' 'systemctl poweroff'"
+
+# ── Workspaces ───────────────────────────────────────────────────
+set $ws1  "1  term"
+set $ws2  "2 󰨞 code"
+set $ws3  "3 󰈹 web"
+set $ws4  "4 󰉋 files"
+set $ws5  "5 󰎅 music"
+set $ws6  "6 󱅆 mail"
+set $ws7  "7 󰊳 chat"
+set $ws8  "8 󰴼 video"
+set $ws9  "9 󰙯 discord"
+set $ws10 "10 󰒓 settings"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+bindsym $mod+grave       workspace next
+bindsym $mod+Shift+grave workspace prev
+
+# ── Workspace assignments ─────────────────────────────────────────
+assign [class="code-oss|Code"]               $ws2
+assign [class="firefox|Chromium|Google-chrome|Brave-browser"] $ws3
+assign [class="Thunar"]                       $ws4
+assign [class="Spotify|spotify"]              $ws5
+assign [class="thunderbird|Geary"]            $ws6
+assign [class="TelegramDesktop|Whatsapp"]     $ws7
+assign [class="vlc|mpv|Totem"]                $ws8
+assign [class="discord|Discord"]              $ws9
+assign [class="Pavucontrol|Arandr|Lxappearance"] $ws10
+
+# ── Floating rules ───────────────────────────────────────────────
+for_window [class="Pavucontrol"]          floating enable, resize set 800 500, move position center
+for_window [class="Blueman-manager"]      floating enable, resize set 600 400, move position center
+for_window [class="Lxappearance"]         floating enable, resize set 600 400, move position center
+for_window [class="Arandr"]              floating enable, resize set 700 500, move position center
+for_window [class="nm-connection-editor"] floating enable, move position center
+for_window [title="Atuin Popup"]          floating enable, resize set 1100 720, move position center, border pixel 2
+for_window [title="Picture-in-Picture"]  floating enable, sticky enable
+for_window [window_role="dialog"]        floating enable
+for_window [window_role="pop-up"]        floating enable
+for_window [class="Code" window_role="dialog"] floating disable
+for_window [class="Code" window_role="pop-up"] floating disable
+for_window [class="code-oss" window_role="dialog"] floating disable
+for_window [class="code-oss" window_role="pop-up"] floating disable
+for_window [class="Google-chrome" window_role="dialog"] floating disable
+for_window [class="Google-chrome" window_role="pop-up"] floating disable
+for_window [class="google-chrome" window_role="dialog"] floating disable
+for_window [class="google-chrome" window_role="pop-up"] floating disable
+for_window [class="Chromium" window_role="dialog"] floating disable
+for_window [class="Chromium" window_role="pop-up"] floating disable
+for_window [class="Brave-browser" window_role="dialog"] floating disable
+for_window [class="Brave-browser" window_role="pop-up"] floating disable
+
+# ── Resize mode ──────────────────────────────────────────────────
+mode "resize" {
+    bindsym h     resize shrink width  10 px or 10 ppt
+    bindsym j     resize grow   height 10 px or 10 ppt
+    bindsym k     resize shrink height 10 px or 10 ppt
+    bindsym l     resize grow   width  10 px or 10 ppt
+    bindsym Left  resize shrink width  10 px or 10 ppt
+    bindsym Down  resize grow   height 10 px or 10 ppt
+    bindsym Up    resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow   width  10 px or 10 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+focus_on_window_activation smart
+focus_follows_mouse no
