@@ -31,7 +31,7 @@
     separator_color     = frame
     sort                = yes
 
-    idle_threshold      = 120
+    idle_threshold      = 0
     font                = JetBrainsMono Nerd Font 11
     line_height         = 0
     markup              = full
@@ -74,7 +74,7 @@
     foreground  = "#a6adc8"
     frame_color = "#45475a"
     highlight   = "#6c7086"
-    timeout     = 4
+    timeout     = 5
     icon        = dialog-information
 
 [urgency_normal]
@@ -82,7 +82,7 @@
     foreground  = "#cdd6f4"
     frame_color = "#89b4fa"
     highlight   = "#89b4fa"
-    timeout     = 6
+    timeout     = 5
     icon        = dialog-information
 
 [urgency_critical]

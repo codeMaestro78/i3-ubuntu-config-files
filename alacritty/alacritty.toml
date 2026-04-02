@@ -16,21 +16,21 @@ TERM_PROGRAM_VERSION = "0.13"
 
 # ── Window ─────────────────────────────────────────────────────────────
 [window]
-padding = { x = 28, y = 22 }
+padding = { x = 24, y = 18 }
 dynamic_padding = true
 decorations = "buttonless"  # Cleaner than "none", shows traffic lights on macOS
-opacity = 0.82  # Slightly more opaque for better readability
+opacity = 0.88  # Cleaner glass look with better readability
 blur = false
 startup_mode = "Windowed"
-title = "⚡ Terminal"
+title = "Terminal"
 dynamic_title = true
 resize_increments = false
 decorations_theme_variant = "Dark"
 option_as_alt = "OnlyLeft"  # Better for macOS users with special chars
 
 [window.dimensions]
-columns = 140  # Wider for modern ultrawide monitors
-lines = 40     # Taller for better context
+columns = 136  # Slightly tighter and more balanced
+lines = 38     # Better centered proportions
 
 [window.position]
 x = 100
@@ -43,7 +43,7 @@ general = "Alacritty"
 # ── Scrolling ──────────────────────────────────────────────────────────
 [scrolling]
 history = 100000
-multiplier = 5  # Smoother, more controlled scrolling
+multiplier = 4  # Smoother, less jumpy scrolling
 
 # ── Font ───────────────────────────────────────────────────────────────
 [font]
@@ -51,30 +51,30 @@ normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
 bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
 italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
 bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
-size = 13.5  # Slightly larger for reduced eye strain
+size = 13.0  # Slightly smaller for a denser terminal layout
 builtin_box_drawing = true
 
 [font.offset]
 x = 0
-y = 3  # Better vertical centering
+y = 2  # Slightly tighter vertical balance
 
 [font.glyph_offset]
 x = 0
-y = 1
+y = 0
 
 # ── Cursor ─────────────────────────────────────────────────────────────
 [cursor]
-style = { shape = "Block", blinking = "Off" }
-vi_mode_style = { shape = "Beam", blinking = "Off" }  # Beam is more visible in vi mode
-blink_interval = 550
+style = { shape = "Beam", blinking = "On" }
+vi_mode_style = { shape = "Block", blinking = "Off" }  # Stronger vi-mode contrast
+blink_interval = 500
 blink_timeout = 0
 unfocused_hollow = true
-thickness = 0.18
+thickness = 0.24
 
 # ── Bell / Visual Feedback ────────────────────────────────────────────
 [bell]
 animation = "Linear"
-duration = 0
+duration = 80
 color = "#0a0e14"
 command = "None"
 
@@ -115,42 +115,42 @@ draw_bold_text_with_bright_colors = true
 transparent_background_colors = false
 
 [colors.primary]
-background = "#0a0e14"  # Deeper, richer black
-foreground = "#e6eef3"  # Brighter white for better contrast
-dim_foreground = "#6c7a89"
+background = "#070b11"  # Darker glass-friendly background
+foreground = "#edf3f7"  # Cleaner high-contrast foreground
+dim_foreground = "#738293"
 bright_foreground = "#ffffff"
 
 [colors.cursor]
-text = "#0a0e14"
-cursor = "#ff79c6"  # Hot pink neon
+text = "#070b11"
+cursor = "#7df9ff"  # Ice-cyan beam
 
 [colors.vi_mode_cursor]
-text = "#0a0e14"
-cursor = "#00ffff"  # Pure cyan
+text = "#070b11"
+cursor = "#ff9bdc"  # Pink contrast in vi mode
 
 [colors.selection]
 text = "#ffffff"
-background = "#5a7a99"  # Muted blue for better readability
+background = "#415d7c"  # Richer blue-gray selection
 
 [colors.search.matches]
-foreground = "#0a0e14"
+foreground = "#070b11"
 background = "#f1fa8c"  # Bright yellow
 
 [colors.search.focused_match]
-foreground = "#0a0e14"
-background = "#50fa7b"  # Neon green
+foreground = "#070b11"
+background = "#6dffb3"  # Mint neon green
 
 [colors.hints.start]
-foreground = "#0a0e14"
-background = "#8be9fd"  # Bright cyan
+foreground = "#070b11"
+background = "#9be7ff"  # Bright cyan
 
 [colors.hints.end]
-foreground = "#0a0e14"
-background = "#bd93f9"  # Purple
+foreground = "#070b11"
+background = "#c7a6ff"  # Soft violet
 
 [colors.footer_bar]
-background = "#0d1117"
-foreground = "#e6eef3"
+background = "#0b1018"
+foreground = "#edf3f7"
 
 [colors.line_indicator]
 foreground = "None"
@@ -158,69 +158,69 @@ background = "None"
 
 # ── Normal Colors (Enhanced Neon Palette) ──────────────────────────────
 [colors.normal]
-black = "#21222c"
-red = "#ff6e6e"       # Softer red, less harsh
-green = "#69ff94"     # Vibrant neon green
-yellow = "#ffffa5"    # Warm yellow
-blue = "#57c7ff"      # Electric blue
-magenta = "#ff92df"   # Hot magenta
-cyan = "#7df9ff"      # Bright cyan
-white = "#e6eef3"     # Off-white
+black = "#1b2029"
+red = "#ff7f96"
+green = "#7cffb2"
+yellow = "#ffe082"
+blue = "#66d1ff"
+magenta = "#ff9fe6"
+cyan = "#8ef7ff"
+white = "#edf3f7"
 
 # ── Bright Colors (Maximum Neon Impact) ────────────────────────────────
 [colors.bright]
-black = "#545862"
-red = "#ff8b92"       # Coral red
-green = "#a6ff9e"     # Mint green
-yellow = "#ffffcc"    # Pastel yellow
-blue = "#92d9ff"      # Sky blue
-magenta = "#ffaaff"   # Pink magenta
-cyan = "#b4f9ff"      # Ice cyan
-white = "#ffffff"     # Pure white
+black = "#5d6470"
+red = "#ff9fb0"
+green = "#b0ffd1"
+yellow = "#fff0b0"
+blue = "#9ae2ff"
+magenta = "#ffb6ef"
+cyan = "#c1fbff"
+white = "#ffffff"
 
 # ── Dim Colors (For Inactive Elements) ─────────────────────────────────
 [colors.dim]
-black = "#14161b"
-red = "#d95d82"
-green = "#5ab977"
-yellow = "#d7db7a"
-blue = "#48aee0"
-magenta = "#d46ab0"
-cyan = "#57bfd6"
-white = "#b4bcc8"
+black = "#12161c"
+red = "#cf6989"
+green = "#5fb58b"
+yellow = "#d7c778"
+blue = "#4aa7d6"
+magenta = "#cf74b5"
+cyan = "#5dbfd0"
+white = "#b7c0cc"
 
 # ── Indexed Colors (Extended Palette) ──────────────────────────────────
 [[colors.indexed_colors]]
 index = 16
-color = "#ffb86c"  # Orange
+color = "#ffb86f"  # Orange
 
 [[colors.indexed_colors]]
 index = 17
-color = "#bd93f9"  # Purple
+color = "#c9a7ff"  # Purple
 
 [[colors.indexed_colors]]
 index = 18
-color = "#0a0e14"  # Background variant
+color = "#070b11"  # Background variant
 
 [[colors.indexed_colors]]
 index = 19
-color = "#0d1117"  # Background variant 2
+color = "#0b1018"  # Background variant 2
 
 [[colors.indexed_colors]]
 index = 20
-color = "#00ffff"  # Neon cyan
+color = "#7df9ff"  # Neon cyan
 
 [[colors.indexed_colors]]
 index = 21
-color = "#ff79c6"  # Neon pink
+color = "#ff96da"  # Neon pink
 
 [[colors.indexed_colors]]
 index = 22
-color = "#8aff80"  # Neon lime
+color = "#8fffbc"  # Neon mint
 
 [[colors.indexed_colors]]
 index = 23
-color = "#ff6ac1"  # Hot pink
+color = "#ff85d5"  # Hot pink
 
 # ── URL & Path Hints ──────────────────────────────────────────────────
 [[hints.enabled]]
